@@ -116,4 +116,5 @@ def auto_command_loop():
 
 # 실행 시작
 if __name__ == "__main__":
+    threading.Thread(target=auto_main_loop, daemon=True).start()
     auto_command_loop()
