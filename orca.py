@@ -62,3 +62,22 @@ if __name__ == "__main__":
         time.sleep(1)
 
 print("Hello Orca")
+
+def log_system_status(cpu_usage, memory_usage):
+    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    with open("orca_log.txt", "a", encoding="utf-8") as f:
+        f.write(f"[{now}] CPU: {cpu_usage:.1f}% / 메모리: {memory_usage:.1f}%\n")
+
+def print_system_status():
+    cpu = psutil.cpu_percent()
+    memory = psutil.virtual_memory().percent
+    print(f"📊 현재 상태: CPU {cpu:.1f}%, 메모리 {memory:.1f}%")
+    log_system_status(cpu, memory)
+
+def auto_main_loop():
+    while True:
+        suggest_feature()
+        update_orca()
+        git_auto_push()
+        print_system_status()
+        time.sleep(3600)
