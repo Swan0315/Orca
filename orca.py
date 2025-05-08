@@ -83,13 +83,12 @@ def auto_main_loop():
         time.sleep(3600)
 
 # 자동 명령어 실행 시스템
-
 import subprocess
 
 # 명령어 사전 등록
 command_dict = {
     "check_cpu": "wmic cpu get loadpercentage",
-    "check_memory": "systeminfo | findstr /C:'Memory'",
+    "check_memory": "systeminfo | findstr /C:Memory",
     "check_disk": "wmic diskdrive get status"
 }
 
@@ -97,18 +96,20 @@ command_dict = {
 def run_command(command):
     if command in command_dict:
         try:
-            print(f"📥 명령어 실행: {command}")
+            print(f"💻 명령어 실행: {command}")
             result = subprocess.check_output(command_dict[command], shell=True).decode()
-            print(f"📊 실행 결과: {result}")
-            with open("command_log.txt", "a", encoding="utf-8") as f:
+            print(f"📜 실행 결과: {result}")
+            with open("command.log.txt", "a", encoding="utf-8") as f:
                 f.write(f"{command} - {result}\n")
         except Exception as e:
             print(f"❌ 명령어 실행 중 오류 발생: {e}")
+    else:
+        print("⚠️ 알 수 없는 명령어입니다.")
 
 # 실행 예시 (실시간으로 자동 실행)
 def auto_command_loop():
     while True:
-        user_input = input("명령어를 입력하세요 (예: check_cpu, check_memory, check_disk): ")
+        user_input = input("명령어를 입력해주세요 (예: check_cpu, check_memory, check_disk): ")
         if user_input in command_dict:
             run_command(user_input)
         else:
@@ -116,8 +117,9 @@ def auto_command_loop():
 
 # 실행 시작
 if __name__ == "__main__":
-    threading.Thread(target=auto_main_loop, daemon=True).start()
-    auto_command_loop()
+    threading.Thread(target=auto_command_loop, daemon=True).start()
+    while True:
+        time.sleep(1)
 
 # 📁 시스템 정보 수집 기능
 import platform
