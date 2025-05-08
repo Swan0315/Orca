@@ -118,3 +118,46 @@ def auto_command_loop():
 if __name__ == "__main__":
     threading.Thread(target=auto_main_loop, daemon=True).start()
     auto_command_loop()
+
+# 📁 시스템 정보 수집 기능
+import platform
+import socket
+
+# 시스템 정보 출력 함수
+def print_system_info():
+    print("\n🧠 시스템 정보 수집 중...")
+    try:
+        system_info = {
+            "운영체제": platform.system(),
+            "OS 버전": platform.version(),
+            "컴퓨터 이름": socket.gethostname(),
+            "프로세서": platform.processor()
+        }
+        for key, value in system_info.items():
+            print(f"{key}: {value}")
+        
+        # 로그 파일에 저장
+        with open("orca_log.txt", "a", encoding="utf-8") as f:
+            f.write("\n[시스템 정보 수집 결과]\n")
+            for key, value in system_info.items():
+                f.write(f"{key}: {value}\n")
+    except Exception as e:
+        print(f"❌ 시스템 정보 수집 중 오류 발생: {e}")
+
+
+# 📁 명령 실행 시 오디오 피드백 추가
+import winsound
+
+def play_feedback():
+    frequency = 600  # Hz
+    duration = 150   # ms
+    winsound.Beep(frequency, duration)
+
+
+# 📁 오르카 상태 로깅 개선
+from datetime import datetime
+
+def log_orca_status(message):
+    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    with open("orca_log.txt", "a", encoding="utf-8") as f:
+        f.write(f"[{now}] {message}\n")
