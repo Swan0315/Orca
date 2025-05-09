@@ -472,3 +472,30 @@ def analyze_emotion_log():
         print(f"⚠️ 감정 분석 실패: {e}")
 
 command_dict["emotion_summary"] = "analyze_emotion_log"
+
+
+# 🎮 오르카: 마우스 및 키보드 제어 기능
+import pyautogui
+import keyboard
+import mouse
+
+def orca_click():
+    try:
+        x, y = pyautogui.position()
+        pyautogui.click()
+        print(f"🖱️ 현재 위치 ({x}, {y}) 클릭 완료!")
+    except Exception as e:
+        print(f"⚠ 마우스 클릭 실패: {e}")
+
+def orca_type():
+    try:
+        text = input("📝 입력할 내용을 적어주세요: ")
+        pyautogui.write(text, interval=0.05)
+        print(f"⌨️ '{text}' 입력 완료!")
+    except Exception as e:
+        print(f"⚠ 키보드 입력 실패: {e}")
+
+# 🔽 명령어 등록
+command_dict["click"] = "orca_click"
+command_dict["type"] = "orca_type"
+
