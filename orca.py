@@ -495,7 +495,22 @@ def orca_type():
     except Exception as e:
         print(f"⚠ 키보드 입력 실패: {e}")
 
-# 🔽 명령어 등록
-command_dict["click"] = "orca_click"
-command_dict["type"] = "orca_type"
+
+import pyautogui  # ← 파일 상단 import 구역에 이미 있다면 생략 가능
+
+# 🖱 명령어 등록
+command_dict["click"] = "mouse_click"
+
+# 🖱 마우스 클릭 함수
+def mouse_click():
+    try:
+        x, y = pyautogui.position()
+        pyautogui.click(x, y)
+        print(f"📍 현재 위치 클릭됨: ({x}, {y})")
+    except Exception as e:
+        print(f"⚠️ 마우스 클릭 실패: {e}")
+
+
+
+
 
