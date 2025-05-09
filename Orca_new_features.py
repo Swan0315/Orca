@@ -1,4 +1,3 @@
-
 import requests
 import os
 import time
@@ -19,8 +18,7 @@ def suggest_feature():
         "4. 나만의 명령어 시스템 추가",
         "5. 실시간 시스템 모니터링 기능"
     ]
-    print("
-💡 오르카가 제안하는 기능 목록:")
+    print("💡 오르카가 제안하는 기능 목록:")
     for feature in features:
         print(" -", feature)
 
@@ -28,14 +26,13 @@ def suggest_feature():
 def monitor_system():
     cpu_usage = psutil.cpu_percent()
     memory_usage = psutil.virtual_memory().percent
-    print(f"현재 시스템 상태 확인 중...
+    print(f"""📊 현재 시스템 상태 확인 중...
 CPU 사용량: {cpu_usage}%
-메모리 사용량: {memory_usage}%")
+메모리 사용량: {memory_usage}%""")
 
 # 업데이트 확인 및 반영
 def update_orca():
-    print("
-Orca: 업데이트 확인 중…")
+    print("🔄 Orca: 업데이트 확인 중…")
     try:
         response = requests.get(py_download_url)
         if response.status_code == 200:
