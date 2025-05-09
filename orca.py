@@ -121,3 +121,49 @@ if __name__ == "__main__":
     threading.Thread(target=auto_command_loop, daemon=True).start()
     while True:
         time.sleep(1)
+
+import os
+import sys
+
+# 시스템 종료 명령
+def shutdown_pc():
+    print("🛑 시스템을 종료합니다...")
+    os.system("shutdown /s /t 1")
+
+# 시스템 재시작 명령
+def restart_pc():
+    print("🔁 시스템을 재시작합니다...")
+    os.system("shutdown /r /t 1")
+
+# 오르카 종료 명령
+def exit_orca():
+    print("👋 오르카를 종료합니다.")
+    sys.exit()
+
+# 명령어 추가 등록
+command_dict.update({
+    "shutdown_pc": "shutdown",
+    "restart_pc": "restart",
+    "exit_orca": "exit"
+})
+
+# 명령 처리 함수 확장
+def run_command(command):
+    if command in command_dict:
+        try:
+            if command == "shutdown_pc":
+                shutdown_pc()
+            elif command == "restart_pc":
+                restart_pc()
+            elif command == "exit_orca":
+                exit_orca()
+            else:
+                print(f"📘 명령어 실행: {command}")
+                result = subprocess.check_output(command_dict[command], shell=True).decode()
+                print(f"📄 실행 결과: {result}")
+                with open("command_log.txt", "a", encoding="utf-8") as f:
+                    f.write(f"{command} - {result}\n")
+        except Exception as e:
+            print(f"❌ 명령어 실행 중 오류 발생: {e}")
+    else:
+        print("⚠ 알 수 없는 명령어입니다.")
