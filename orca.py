@@ -79,7 +79,9 @@ def run_command(command):
 
 def auto_command_loop():
     while True:
-        user_input = input("명령어를 입력해주세요 (예: check_cpu, check_memory, check_disk): ")
+        print("\n명령어를 입력해주세요 (예: check_cpu, check_memory, check_disk, shutdown_pc, restart_pc, exit_orca):")
+        user_input = input()
+        
         if user_input in command_dict:
             run_command(user_input)
         else:
